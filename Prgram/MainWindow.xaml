@@ -1,0 +1,87 @@
+﻿<Window x:Class="Prgram.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Мои Игры" Height="400" Width="600">
+    <Grid Margin="10">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/> <RowDefinition Height="*"/>    <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,5">
+        <TextBlock Text="Название:" Width="65" VerticalAlignment="Center"/>
+        <TextBox x:Name="GameTitleInput" Width="150" Padding="4" Margin="0,0,10,0"/>
+        <Button Content="Скан. папку" Width="145" Click="ScanMultipleGames_Click"/>
+        <Button Content="Добавить игру" Width="85" Click="ScanFolder_Click" Margin="0,0,5,0"/>
+    </StackPanel>
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10">
+        <TextBlock Text="Режим:" Width="50" VerticalAlignment="Center"/>
+        <ComboBox x:Name="GameModeCombo" Width="100" Margin="0,0,10,0" SelectedIndex="0">
+            <ComboBoxItem Content="Не пройдена"/>
+            <ComboBoxItem Content="Пройдена"/>
+            <ComboBoxItem Content="Песочница"/>
+            <ComboBoxItem Content="Онлайн"/>
+        </ComboBox>
+
+        <TextBlock Text="Теги:" Width="35" VerticalAlignment="Center"/>
+        <TextBox x:Name="GameCategoriesInput" Width="110" Margin="0,0,10,0" Padding="4"/>
+        <Button Content="Добавить" Width="70" Click="AddGame_Click"/>
+    </StackPanel>
+
+    <ListBox x:Name="TagTabs" Grid.Row="2" Margin="0,0,0,5" BorderThickness="0" Background="Transparent" SelectionChanged="TagTabs_SelectionChanged">
+        <ListBox.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel Orientation="Horizontal"/>
+            </ItemsPanelTemplate>
+        </ListBox.ItemsPanel>
+        <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem">
+                <Setter Property="Padding" Value="10,4"/>
+                <Setter Property="Margin" Value="0,0,5,5"/>
+                <Setter Property="Background" Value="#E0E0E0"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="#007ACC"/> 
+                        <Setter Property="Foreground" Value="White"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ListBox.ItemContainerStyle>
+    </ListBox>
+
+    <ListBox x:Name="GamesList" Grid.Row="3" DisplayMemberPath="DisplayText" Margin="0,0,0,10" 
+             SelectionMode="Extended" SelectionChanged="GamesList_SelectionChanged"/>
+
+    <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,10">
+        <TextBlock Text="Новый статус:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+        <ComboBox x:Name="ChangeModeCombo" Width="110" Margin="0,0,10,0" SelectedIndex="1">
+            <ComboBoxItem Content="Не пройдена"/>
+            <ComboBoxItem Content="Пройдена"/>
+            <ComboBoxItem Content="Песочница"/>
+            <ComboBoxItem Content="Онлайн"/>
+        </ComboBox>
+        <Button Content="Применить" Width="80" Margin="0,0,15,0" Click="ChangeMode_Click"/>
+        <Button Content="Удалить выбранные" Width="130" Click="DeleteGame_Click" Foreground="DarkRed"/>
+    </StackPanel>
+
+    <StackPanel Grid.Row="5" Orientation="Horizontal">
+        <TextBlock Text="Новое имя:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+        <TextBox x:Name="RenameInput" Width="135" Margin="0,0,5,0" Padding="4"/>
+        <Button Content="Переименовать" Width="100" Margin="0,0,15,0" Click="RenameGame_Click"/>
+        <Button x:Name="PlayButton" Content="▶ ИГРАТЬ" Width="100" Click="PlayGame_Click" FontWeight="Bold" Foreground="DarkGreen"/>
+    </StackPanel>
+</Grid>
+</Window>
